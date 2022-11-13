@@ -1,8 +1,12 @@
+require('./models/User');
+require('./config/passport'); // <-- ADD THIS LINE
+const passport = require('passport'); // <-- ADD THIS LINE
 const express = require("express");
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const csurf = require('csurf')
 const debug = require('debug');
+
 
 
 // ADD THESE TWO LINES
@@ -19,6 +23,8 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(passport.initialize());
+
 
 // ...
 
