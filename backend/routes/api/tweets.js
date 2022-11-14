@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const User = mongoose.model('User');
 const Tweet = mongoose.model('Tweet');
 const { requireUser } = require('../../config/passport');
-const validateTweetInput = require('../../validation/tweets');
+const validateTweetInput = require('../../validations/tweets');
 
 router.get('/', async (req, res) => {
   try {
@@ -16,7 +16,7 @@ router.get('/', async (req, res) => {
   catch (err) {
     return res.json([]);
   }
-})
+});
 
 router.get('/user/:userId', async (req, res, next) => {
   let user;
@@ -51,12 +51,8 @@ router.get('/:id', async (req, res, next) => {
     error.errors = { message: "No tweet found with that id" };
     return next(error);
   }
-})
+});
 
-// Attach requireUser as a middleware before the route handler to gain access
-// to req.user. (requireUser will return an error response if there is no 
-// current user.) Also attach validateTweetInput as a middleware before the 
-// route handler.
 router.post('/', requireUser, validateTweetInput, async (req, res, next) => {
   try {
     const newTweet = new Tweet({
@@ -72,5 +68,3 @@ router.post('/', requireUser, validateTweetInput, async (req, res, next) => {
     next(err);
   }
 });
-
-module.exports = router;

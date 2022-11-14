@@ -1,6 +1,7 @@
 require('./models/User');
-require('./config/passport'); // <-- ADD THIS LINE
-const passport = require('passport'); // <-- ADD THIS LINE
+require('./models/Tweet'); 
+require('./config/passport');
+const passport = require('passport'); 
 const express = require("express");
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
